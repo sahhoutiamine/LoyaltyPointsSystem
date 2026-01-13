@@ -46,6 +46,32 @@ class User
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function updateTotalPoints($userId, $newTotal)
+    {
+        $sql = "UPDATE {$this->table} SET total_points = :total_points WHERE id = :id";
+        
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':total_points' => $newTotal,
+            ':id' => $userId
+        ]);
+    }
+
+    public function verifyPassword($password, $hash)
+    {
+        return password_verify($password, $hash);
+    }
     
+    public function emailExists($email)
+    {
+        $sql = "SELECT COUNT(*) as count FROM {$this->table} WHERE email = :email";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
 }
 ?>
