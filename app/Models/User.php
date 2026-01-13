@@ -36,6 +36,16 @@ class User
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function findById($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
 }
 ?>
