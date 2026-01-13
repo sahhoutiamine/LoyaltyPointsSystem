@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Models;
+
 class Purchase
 {
     private $db;
