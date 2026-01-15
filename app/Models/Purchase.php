@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Models;
+use PDO;
+use App\Core\Config\Database;
 
 class Purchase
 {
     private $db;
     private $table = 'purchases';
     
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance()->getConnection();
     }
     
     // Méthode existante

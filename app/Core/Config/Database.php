@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Core\Config;
+
+use PDO;
+use PDOException;
+
 class Database {
     private $host = 'localhost';
     private $dbname = 'facileachatdb';
@@ -38,4 +43,3 @@ class Database {
         return $this->pdo;
     }
 }
-?>

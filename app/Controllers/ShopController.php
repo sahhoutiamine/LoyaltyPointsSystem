@@ -1,16 +1,16 @@
 <?php
-require_once __DIR__ . '/../models/Purchase.php';
-require_once __DIR__ . '/../models/User.php';
+use App\Models\Purchase;
+use App\Models\User;
 
 class ShopController
 {
     private $purchaseModel;
     private $userModel;
     
-    public function __construct($db)
+    public function __construct()
     {
-        $this->purchaseModel = new Purchase($db);
-        $this->userModel = new User($db);
+        $this->purchaseModel = new Purchase();
+        $this->userModel = new User();
     }
     
     // Méthode existante - à analyser et compléter

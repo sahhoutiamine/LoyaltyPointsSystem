@@ -4,7 +4,7 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__ . '/../app/Core/Config/Database.php';
+
 
 use App\Core\Router;
 use App\Controllers\AuthController;

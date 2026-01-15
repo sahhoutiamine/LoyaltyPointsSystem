@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use PDO;
+use App\Core\Config\Database;
+
 class User
 {
     private $db;
     private $table = 'users';
     
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function create($data)

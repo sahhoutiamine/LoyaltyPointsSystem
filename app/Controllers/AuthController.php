@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
-use Database;
+
 
 class AuthController extends Controller {
 
@@ -12,9 +12,7 @@ class AuthController extends Controller {
 
     public function __construct() {
         parent::__construct();
-        // Since Database is manually required in index.php and has no namespace
-        $db = Database::getInstance()->getConnection();
-        $this->userModel = new User($db);
+        $this->userModel = new User();
     }
     
     public function loginForm() {

@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Models;
+use App\Core\Config\Database;
 
-class User
+class Reward
 {
     private $db;
     private $table = 'rewards';
     
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance()->getConnection();
     }
 }
 ?>
