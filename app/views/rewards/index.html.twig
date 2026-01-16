@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récompenses - Loyalty System{% endblock %}
+
+{% block content %}
+<div class="rewards-container">
+    <div class="rewards-header">
+        <h1>Catalogue des Récompenses</h1>
+        <div class="user-points-badge">
+            Vos points : <strong>{{ user.total_points }}</strong>
+        </div>
+    </div>
+
+    {% if flash_success %}
+        <div class="alert alert-success">
+            {{ flash_success }}
+        </div>
+    {% endif %}
+
+    {% if flash_error %}
+        <div class="alert alert-error">
+            {{ flash_error }}
+        </div>
+    {% endif %}
+
+    <div class="rewards-grid">
+        {% for reward in rewards %}
+            <div class="reward-card {% if user.total_points < reward.points_required %}disabled{% endif %}">
+                <div class="reward-icon">🎁</div>
+                <h3 class="reward-name">{{ reward.name }}</h3>
+                <p class="reward-desc">{{ reward.description }}</p>
+                
+                <div class="reward-footer">
+                    <span class="reward-cost">{{ reward.points_required }} points</span>
+                    
+                    <form action="/rewards/redeem" method="POST">
+                        <input type="hidden" name="reward_id" value="{{ reward.id }}">
+                        {% if user.total_points >= reward.points_required %}
+                            <button type="submit" class="btn btn-primary btn-sm">Échanger</button>
+                        {% else %}
+                             <button type="button" class="btn btn-secondary btn-sm" disabled>Pas assez de points</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .rewards-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .user-points-badge { background: #e8f5e9; color: #2e7d32; padding: 10px 20px; border-radius: 25px; font-size: 1.1rem; border: 1px solid #c8e6c9; }
+    
+    .rewards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+    .reward-card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s; border: 1px solid #eee; }
+    .reward-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .reward-card.disabled { opacity: 0.7; }
+    
+    .reward-icon { font-size: 3rem; margin-bottom: 15px; text-align: center; }
+    .reward-name { margin: 0 0 10px; color: #333; font-size: 1.3rem; }
+    .reward-desc { color: #666; font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+    
+    .reward-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px solid #f0f0f0; }
+    .reward-cost { font-weight: bold; color: #007bff; font-size: 1.1rem; }
+</style>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ShopEasy - Commande confirmée{% endblock %}
+
+{% block content %}
+    <div class="purchase-result">
+        <div class="result-container">
+            <span class="success-icon">✅</span>
+            <h1>Commande confirmée !</h1>
+            <p class="success-message">Merci pour votre achat, {{ user.name }} !</p>
+
+            <div class="result-card">
+                <h2>Détails de votre commande</h2>
+                <p class="order-date">Date: {{ purchase.date }}</p>
+                
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in purchase.items %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ (item.price * item.quantity)|number_format(2, '.', ' ') }} $</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"><strong>Total payé</strong></td>
+                            <td><strong>{{ purchase.total|number_format(2, '.', ' ') }} $</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="points-result-card" style="margin-top: 20px; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <h2 style="margin-top:0;">Points de fidélité</h2>
+                
+                <div class="points-summary">
+                    <div class="points-item" style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span class="points-label">Points gagnés avec cet achat:</span>
+                        <span class="points-value earned" style="color: #2e7d32; font-weight: bold;">+{{ purchase.points_earned }} points</span>
+                    </div>
+                </div>
+
+                <div class="points-item highlight" style="margin-top: 15px; font-size: 1.2rem; display: flex; justify-content: space-between; border-top: 1px solid #ddd; padding-top: 10px;">
+                    <span class="points-label">Nouveau solde:</span>
+                    <span class="points-value new-balance" style="color: #007bff; font-weight: bold;">{{ purchase.new_points }} points</span>
+                </div>
+            </div>
+
+            <div class="result-actions" style="margin-top: 30px;">
+                <a href="/shop" class="btn btn-secondary">Continuer mes achats</a>
+                <a href="/" class="btn btn-primary">Voir mon tableau de bord</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

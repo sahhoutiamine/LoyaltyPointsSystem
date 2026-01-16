@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - Loyalty System{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Bienvenue, {{ user.name }} !</h1>
+    
+    <div class="points-card">
+        <h2>Mes Points de Fidélité</h2>
+        <div class="points-display">
+            <span class="points-value">{{ user.total_points }}</span>
+            <span class="points-label">points</span>
+        </div>
+        <p>Gagnez plus de points en effectuant des achats dans notre boutique !</p>
+    </div>
+
+    <div class="action-cards">
+        <a href="/shop" class="card-link">
+            <div class="card">
+                <h3>🛍️ Boutique</h3>
+                <p>Découvrez nos produits et gagnez des points.</p>
+            </div>
+        </a>
+        <a href="/shop/cart" class="card-link">
+            <div class="card">
+                <h3>🛒 Panier</h3>
+                <p>Voir votre panier en cours.</p>
+            </div>
+        </a>
+        <a href="/rewards" class="card-link">
+            <div class="card">
+                <h3>🎁 Récompenses</h3>
+                <p>Échangez vos points contre des cadeaux !</p>
+            </div>
+        </a>
+    </div>
+    </div>
+
+    <div class="transactions-section">
+        <h2>Historique des transactions</h2>
+        {% if transactions is empty %}
+            <p class="no-data">Aucune transaction pour le moment.</p>
+        {% else %}
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.created_at|date("d/m/Y H:i") }}</td>
+                            <td>{{ transaction.description }}</td>
+                            <td>
+                                {% if transaction.type == 'earned' %}
+                                    <span class="badge badge-success">Gagné</span>
+                                {% else %}
+                                    <span class="badge badge-warning">Dépensé</span>
+                                {% endif %}
+                            </td>
+                            <td class="points-amount {% if transaction.amount > 0 %}positive{% else %}negative{% endif %}">
+                                {% if transaction.amount > 0 %}+{% endif %}{{ transaction.amount }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .dashboard-container { max-width: 800px; margin: 0 auto; }
+    .points-card { 
+        background: linear-gradient(135deg, #007bff, #0056b3); 
+        color: white; 
+        padding: 30px; 
+        border-radius: 10px; 
+        text-align: center; 
+        margin-bottom: 30px; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .points-card h2 { color: white; border-bottom: none; }
+    .points-display { font-size: 3rem; font-weight: bold; margin: 10px 0; }
+    .points-label { font-size: 1rem; opacity: 0.8; }
+    
+    .action-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card-link { text-decoration: none; color: inherit; }
+    .card { 
+        background: white; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        transition: transform 0.2s;
+        border: 1px solid #eee;
+    }
+    .card:hover { transform: translateY(-5px); border-color: #007bff; }
+    .card h3 { margin-top: 0; color: #333; }
+    .card p { color: #666; font-size: 0.9em; }
+</style>
+{% endblock %}
