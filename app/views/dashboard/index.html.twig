@@ -3,104 +3,141 @@
 {% block title %}Dashboard - Loyalty System{% endblock %}
 
 {% block content %}
-<div class="dashboard-container">
-    <h1>Bienvenue, {{ user.name }} !</h1>
-    
-    <div class="points-card">
-        <h2>Mes Points de Fidélité</h2>
-        <div class="points-display">
-            <span class="points-value">{{ user.total_points }}</span>
-            <span class="points-label">points</span>
+<div class="max-w-4xl mx-auto space-y-8">
+    <!-- Welcome Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-white drop-shadow-md">Bienvenue, {{ user.name }} !</h1>
+            <p class="text-slate-300">Gérez vos points et profitez de vos récompenses.</p>
         </div>
-        <p>Gagnez plus de points en effectuant des achats dans notre boutique !</p>
+        <div class="glass px-4 py-2 rounded-full flex items-center gap-2">
+            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="text-white text-sm font-medium">Membre Actif</span>
+        </div>
+    </div>
+    
+    <!-- Points Card -->
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-indigo-600 to-purple-700 text-white shadow-2xl p-8 isolate">
+        <!-- Background decoration -->
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h2 class="text-lg font-medium text-indigo-100 mb-1 border-none">Mes Points de Fidélité</h2>
+                <div class="flex items-baseline gap-2 justify-center md:justify-start">
+                    <span class="text-6xl font-extrabold tracking-tight">{{ user.total_points }}</span>
+                    <span class="text-xl text-indigo-200">pts</span>
+                </div>
+                <p class="mt-4 text-sm text-indigo-100 bg-white/10 inline-block px-3 py-1 rounded-lg backdrop-blur-sm">
+                    <i class="fa-solid fa-arrow-trend-up mr-1"></i> Gagnez 10 pts / 100$
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 w-full md:w-auto">
+               <a href="/shop" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 p-4 rounded-xl flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer text-center group">
+                   <i class="fa-solid fa-bag-shopping text-2xl mb-2 group-hover:text-amber-300 transition-colors"></i>
+                   <span class="text-sm font-medium">Boutique</span>
+               </a>
+               <a href="/rewards" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 p-4 rounded-xl flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer text-center group">
+                   <i class="fa-solid fa-gift text-2xl mb-2 group-hover:text-pink-300 transition-colors"></i>
+                   <span class="text-sm font-medium">Cadeaux</span>
+               </a>
+            </div>
+        </div>
     </div>
 
-    <div class="action-cards">
-        <a href="/shop" class="card-link">
-            <div class="card">
-                <h3>🛍️ Boutique</h3>
-                <p>Découvrez nos produits et gagnez des points.</p>
+    <!-- Quick Actions -->
+    <h3 class="text-xl font-bold text-white mb-4 pl-2 border-l-4 border-secondary">Actions Rapides</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/shop" class="group block">
+            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-blue-500 hover:border-primary transition-all hover:-translate-y-1 h-full">
+                <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors text-blue-500 text-xl">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2">Boutique</h3>
+                <p class="text-slate-500 text-sm">Découvrez nos produits premium et cumulez des points.</p>
             </div>
         </a>
-        <a href="/shop/cart" class="card-link">
-            <div class="card">
-                <h3>🛒 Panier</h3>
-                <p>Voir votre panier en cours.</p>
+        <a href="/shop/cart" class="group block">
+            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-indigo-500 hover:border-indigo-600 transition-all hover:-translate-y-1 h-full">
+                <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-500 group-hover:text-white transition-colors text-indigo-500 text-xl">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2">Panier</h3>
+                <p class="text-slate-500 text-sm">Gérez vos articles et finalisez vos commandes.</p>
             </div>
         </a>
-        <a href="/rewards" class="card-link">
-            <div class="card">
-                <h3>🎁 Récompenses</h3>
-                <p>Échangez vos points contre des cadeaux !</p>
+        <a href="/rewards" class="group block">
+            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-pink-500 hover:border-pink-600 transition-all hover:-translate-y-1 h-full">
+                 <div class="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-500 group-hover:text-white transition-colors text-pink-500 text-xl">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2">Récompenses</h3>
+                <p class="text-slate-500 text-sm">Échangez vos points durement gagnés contre des cadeaux.</p>
             </div>
         </a>
-    </div>
     </div>
 
-    <div class="transactions-section">
-        <h2>Historique des transactions</h2>
+    <!-- Transactions -->
+    <div class="glass rounded-2xl p-6 md:p-8">
+        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
+            Historique des transactions
+        </h2>
+        
         {% if transactions is empty %}
-            <p class="no-data">Aucune transaction pour le moment.</p>
+            <div class="bg-slate-50 rounded-xl p-8 text-center border border-slate-100">
+                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-regular fa-folder-open text-2xl text-slate-400"></i>
+                </div>
+                <p class="text-slate-500 font-medium">Aucune transaction pour le moment.</p>
+                <a href="/shop" class="mt-4 inline-block text-primary hover:underline text-sm font-medium">Commencer à magasiner</a>
+            </div>
         {% else %}
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in transactions %}
-                        <tr>
-                            <td>{{ transaction.created_at|date("d/m/Y H:i") }}</td>
-                            <td>{{ transaction.description }}</td>
-                            <td>
-                                {% if transaction.type == 'earned' %}
-                                    <span class="badge badge-success">Gagné</span>
-                                {% else %}
-                                    <span class="badge badge-warning">Dépensé</span>
-                                {% endif %}
-                            </td>
-                            <td class="points-amount {% if transaction.amount > 0 %}positive{% else %}negative{% endif %}">
-                                {% if transaction.amount > 0 %}+{% endif %}{{ transaction.amount }}
-                            </td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-200">
+                            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+                            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Description</th>
+                            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
+                            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Points</th>
+                            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Solde après</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for transaction in transactions %}
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="p-4 text-sm text-slate-600 font-medium whitespace-nowrap">
+                                    {{ transaction.created_at|date("d/m/Y H:i") }}
+                                </td>
+                                <td class="p-4 text-sm text-slate-700">
+                                    {{ transaction.description }}
+                                </td>
+                                <td class="p-4 text-sm">
+                                    {% if transaction.type == 'earned' %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="fa-solid fa-arrow-down mr-1 text-[10px]"></i> Gagné
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                            <i class="fa-solid fa-arrow-up mr-1 text-[10px]"></i> Dépensé
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="p-4 text-sm font-bold text-right {% if transaction.amount > 0 %}text-green-600{% else %}text-orange-500{% endif %}">
+                                    {% if transaction.amount > 0 %}+{% endif %}{{ transaction.amount }}
+                                </td>
+                                <td class="p-4 text-sm font-medium text-slate-500 text-right">
+                                    {{ transaction.balance_after }} pts
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 </div>
-
-<style>
-    .dashboard-container { max-width: 800px; margin: 0 auto; }
-    .points-card { 
-        background: linear-gradient(135deg, #007bff, #0056b3); 
-        color: white; 
-        padding: 30px; 
-        border-radius: 10px; 
-        text-align: center; 
-        margin-bottom: 30px; 
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .points-card h2 { color: white; border-bottom: none; }
-    .points-display { font-size: 3rem; font-weight: bold; margin: 10px 0; }
-    .points-label { font-size: 1rem; opacity: 0.8; }
-    
-    .action-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .card-link { text-decoration: none; color: inherit; }
-    .card { 
-        background: white; 
-        padding: 20px; 
-        border-radius: 8px; 
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-        transition: transform 0.2s;
-        border: 1px solid #eee;
-    }
-    .card:hover { transform: translateY(-5px); border-color: #007bff; }
-    .card h3 { margin-top: 0; color: #333; }
-    .card p { color: #666; font-size: 0.9em; }
-</style>
 {% endblock %}

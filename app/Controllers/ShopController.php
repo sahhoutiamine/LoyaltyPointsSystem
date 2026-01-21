@@ -21,45 +21,87 @@ class ShopController extends \App\Core\Controller
         $this->products = [
             1 => [
                 'id' => 1,
-                'name' => 'Smartphone Premium',
-                'price' => 799.99,
-                'description' => 'Dernier modèle avec écran OLED et caméra 108MP',
-                'icon' => '📱'
+                'name' => 'Premium Smartphone',
+                'price' => 999.99,
+                'description' => 'Flagship device with 4K OLED display and pro camera system.',
+                'image' => 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop'
             ],
             2 => [
                 'id' => 2,
-                'name' => 'Casque Bluetooth',
-                'price' => 129.99,
-                'description' => 'Son haute fidélité avec réduction de bruit active',
-                'icon' => '🎧'
+                'name' => 'Wireless Noise-Canceling Headphones',
+                'price' => 249.99,
+                'description' => 'Immersive sound with industry-leading noise cancellation.',
+                'image' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop'
             ],
             3 => [
                 'id' => 3,
-                'name' => 'Livre PHP',
-                'price' => 49.99,
-                'description' => 'Maîtrisez PHP 8 et les design patterns MVC',
-                'icon' => '📚'
+                'name' => 'Smart Watch Series 7',
+                'price' => 399.99,
+                'description' => 'Advanced health tracking and always-on retina display.',
+                'image' => 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop'
             ],
             4 => [
                 'id' => 4,
-                'name' => 'T-shirt ShopEasy',
-                'price' => 24.99,
-                'description' => 'T-shirt 100% coton bio avec logo ShopEasy',
-                'icon' => '👕'
+                'name' => 'Mechanical Gaming Keyboard',
+                'price' => 129.99,
+                'description' => 'RGB backlit keys with tactile mechanical switches.',
+                'image' => 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800&auto=format&fit=crop'
             ],
             5 => [
                 'id' => 5,
-                'name' => 'Sac à dos',
-                'price' => 59.99,
-                'description' => 'Sac à dos ergonomique avec compartiment laptop',
-                'icon' => '🎒'
+                'name' => 'Ergonomic Office Chair',
+                'price' => 299.99,
+                'description' => 'Designed for comfort and productivity with lumbar support.',
+                'image' => 'https://m.media-amazon.com/images/I/71BG5CaX8oL._AC_SL1500_.jpg'
             ],
             6 => [
                 'id' => 6,
-                'name' => 'Tablette graphique',
-                'price' => 299.99,
-                'description' => 'Tablette professionnelle pour designers',
-                'icon' => '🖊️'
+                'name' => 'Professional Camera Lens',
+                'price' => 899.99,
+                'description' => 'Sharp prime lens perfect for portraits and low light.',
+                'image' => 'https://images.unsplash.com/photo-1617005082133-548c4dd27f35?q=80&w=800&auto=format&fit=crop'
+            ],
+            7 => [
+                'id' => 7,
+                'name' => 'Minimalist Backpack',
+                'price' => 79.99,
+                'description' => 'Water-resistant fabric with dedicated laptop compartment.',
+                'image' => 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800&auto=format&fit=crop'
+            ],
+            8 => [
+                'id' => 8,
+                'name' => '4K Action Camera',
+                'price' => 349.99,
+                'description' => 'Capture your adventures in stunning 4K resolution.',
+                'image' => 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=800&auto=format&fit=crop'
+            ],
+            9 => [
+                'id' => 9,
+                'name' => 'Smart Home Speaker',
+                'price' => 99.99,
+                'description' => 'Voice-controlled assistant with filling room sound.',
+                'image' => 'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?q=80&w=800&auto=format&fit=crop'
+            ],
+            10 => [
+                'id' => 10,
+                'name' => 'Wireless Charging Pad',
+                'price' => 39.99,
+                'description' => 'Fast charging for all your Qi-enabled devices.',
+                'image' => 'https://images.unsplash.com/photo-1618483109337-251916ee95d1?q=80&w=800&auto=format&fit=crop'
+            ],
+            11 => [
+                'id' => 11,
+                'name' => 'Designer Sunglasses',
+                'price' => 159.99,
+                'description' => 'Classic style with polarized UV protection lenses.',
+                'image' => 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=800&auto=format&fit=crop'
+            ],
+            12 => [
+                'id' => 12,
+                'name' => 'Premium Coffee Maker',
+                'price' => 199.99,
+                'description' => 'Brew barista-quality coffee at home every morning.',
+                'image' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop'
             ]
         ];
     }

@@ -3,42 +3,88 @@
 {% block title %}Récompenses - Loyalty System{% endblock %}
 
 {% block content %}
-<div class="rewards-container">
-    <div class="rewards-header">
-        <h1>Catalogue des Récompenses</h1>
-        <div class="user-points-badge">
-            Vos points : <strong>{{ user.total_points }}</strong>
+<div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+        <div>
+            <h1 class="text-4xl font-extrabold text-white mb-2 drop-shadow-lg">Catalogue des Récompenses</h1>
+            <p class="text-slate-200 text-lg">Échangez vos points contre des cadeaux exclusifs !</p>
+        </div>
+        
+        <div class="bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white/50 transform hover:scale-105 transition-transform">
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md">
+                <i class="fa-solid fa-coins"></i>
+            </div>
+            <div>
+                <span class="block text-xs uppercase font-bold text-slate-500 tracking-wider">Votre Solde</span>
+                <span class="text-2xl font-black text-slate-800">{{ user.total_points }} <span class="text-sm font-medium text-slate-500">pts</span></span>
+            </div>
         </div>
     </div>
 
+    <!-- Alerts -->
     {% if flash_success %}
-        <div class="alert alert-success">
-            {{ flash_success }}
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-r shadow-md mb-8 flex items-center gap-3 animate-fade-in-down">
+            <i class="fa-solid fa-circle-check text-xl"></i>
+            <div>{{ flash_success }}</div>
         </div>
     {% endif %}
 
     {% if flash_error %}
-        <div class="alert alert-error">
-            {{ flash_error }}
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-r shadow-md mb-8 flex items-center gap-3 animate-fade-in-down">
+            <i class="fa-solid fa-circle-exclamation text-xl"></i>
+            <div>{{ flash_error }}</div>
         </div>
     {% endif %}
 
-    <div class="rewards-grid">
+    <!-- Rewards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {% for reward in rewards %}
-            <div class="reward-card {% if user.total_points < reward.points_required %}disabled{% endif %}">
-                <div class="reward-icon">🎁</div>
-                <h3 class="reward-name">{{ reward.name }}</h3>
-                <p class="reward-desc">{{ reward.description }}</p>
+            {% set can_afford = user.total_points >= reward.points_required %}
+            
+            <div class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-slate-100 {% if not can_afford %}opacity-75 grayscale-[0.5] hover:grayscale-0 hover:opacity-100{% endif %}">
                 
-                <div class="reward-footer">
-                    <span class="reward-cost">{{ reward.points_required }} points</span>
+                <!-- Card Header/Image Placeholder -->
+                <div class="h-32 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative overflow-hidden group-hover:from-indigo-50 group-hover:to-purple-50 transition-colors">
+                     <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#4F46E5_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                     <span class="text-6xl transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 drop-shadow-sm">🎁</span>
+                     
+                     <!-- Cost Badge -->
+                     <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary font-bold px-3 py-1 rounded-full shadow-sm text-sm border border-slate-100">
+                         {{ reward.points_required }} pts
+                     </div>
+                </div>
+
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 leading-tight group-hover:text-primary transition-colors">{{ reward.name }}</h3>
+                    <p class="text-slate-500 text-sm mb-6 flex-grow leading-relaxed">{{ reward.description }}</p>
                     
-                    <form action="/rewards/redeem" method="POST">
+                    <form action="/rewards/redeem" method="POST" class="mt-auto">
                         <input type="hidden" name="reward_id" value="{{ reward.id }}">
-                        {% if user.total_points >= reward.points_required %}
-                            <button type="submit" class="btn btn-primary btn-sm">Échanger</button>
+                        
+                        <!-- Progress Bar for specific reward -->
+                        {% if not can_afford %}
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-slate-400 mb-1">
+                                    <span>Progression</span>
+                                    <span>{{ ((user.total_points / reward.points_required) * 100)|round }}%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-slate-300 h-2 rounded-full" style="width: {{ (user.total_points / reward.points_required) * 100 }}%"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if can_afford %}
+                            <button type="submit" class="w-full bg-gradient-to-r from-primary to-indigo-600 hover:from-primary hover:to-primary text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                Échanger
+                            </button>
                         {% else %}
-                             <button type="button" class="btn btn-secondary btn-sm" disabled>Pas assez de points</button>
+                             <button type="button" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-3 px-4 rounded-xl cursor-not-allowed border border-slate-200 flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-lock"></i>
+                                Insuffisant
+                            </button>
                         {% endif %}
                     </form>
                 </div>
@@ -46,21 +92,4 @@
         {% endfor %}
     </div>
 </div>
-
-<style>
-    .rewards-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-    .user-points-badge { background: #e8f5e9; color: #2e7d32; padding: 10px 20px; border-radius: 25px; font-size: 1.1rem; border: 1px solid #c8e6c9; }
-    
-    .rewards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-    .reward-card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s; border: 1px solid #eee; }
-    .reward-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .reward-card.disabled { opacity: 0.7; }
-    
-    .reward-icon { font-size: 3rem; margin-bottom: 15px; text-align: center; }
-    .reward-name { margin: 0 0 10px; color: #333; font-size: 1.3rem; }
-    .reward-desc { color: #666; font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
-    
-    .reward-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px solid #f0f0f0; }
-    .reward-cost { font-weight: bold; color: #007bff; font-size: 1.1rem; }
-</style>
 {% endblock %}
